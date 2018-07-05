@@ -1,0 +1,6 @@
+---
+applications:
+  - name: GenerateScripts
+    buildpack: java_buildpack
+    memory: 256M
+    path: target/generate_scripts-0.0.1-SNAPSHOT.jar

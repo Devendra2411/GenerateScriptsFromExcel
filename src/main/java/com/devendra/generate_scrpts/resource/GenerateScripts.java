@@ -41,10 +41,10 @@ public class GenerateScripts {
 	    query.append("insert into "+tableName+" (");
 	    
 	    int headerColumnsCount=0;
-	    int columnNamesRow=1;
+	    
 	    DataFormatter formatter = new DataFormatter();
 	    List<Integer> integerList=Arrays.asList();
-	    row=sheet.getRow(columnNamesRow-1);
+	    row=sheet.getRow(columnNamesRowNum-1);
 	    headerColumnsCount=row.getPhysicalNumberOfCells();
 	    for(int i=0;i<headerColumnsCount;i++) {
 			   
@@ -53,7 +53,7 @@ public class GenerateScripts {
 			   else
 				   query.append(row.getCell(i)+",");
 		   }
-		   for(int i=columnNamesRow;i<maxRows;i++) {
+		   for(int i=columnNamesRowNum;i<maxRows;i++) {
 			   row=sheet.getRow(i);
 			   int pCells=row.getPhysicalNumberOfCells();
 			   System.out.println(pCells);
