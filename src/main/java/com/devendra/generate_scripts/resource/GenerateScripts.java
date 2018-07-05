@@ -1,4 +1,4 @@
-package com.devendra.generate_scrpts.resource;
+package com.devendra.generate_scripts.resource;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,7 +29,8 @@ public class GenerateScripts {
 	@PostMapping
 	public String generateScript(@RequestParam("file")MultipartFile file,@RequestParam("tableName")String tableName,
 			@RequestParam("maxRows")int maxRows,
-			@RequestParam("columnNamesRowNum")int columnNamesRowNum)
+			@RequestParam("columnNamesRowNum")int columnNamesRowNum,
+			@RequestParam("integerColumns")String integerColumns)
 					throws InvalidFormatException, IOException {
 		Workbook wb=getWorkbook(file);
 		
@@ -43,7 +44,8 @@ public class GenerateScripts {
 	    int headerColumnsCount=0;
 	    
 	    DataFormatter formatter = new DataFormatter();
-	    List<Integer> integerList=Arrays.asList();
+	    List<String> integerList=Arrays.asList(integerColumns.split(","));
+	    System.out.println(integerList.size());
 	    row=sheet.getRow(columnNamesRowNum-1);
 	    headerColumnsCount=row.getPhysicalNumberOfCells();
 	    for(int i=0;i<headerColumnsCount;i++) {
@@ -64,7 +66,7 @@ public class GenerateScripts {
 					   val=null;
 					   query.append(val);
 				   }
-				   else if(integerList.contains(j+1)) {
+				   else if(integerList.contains(Integer.toString(j+1))) {
 					query.append(val);
 				    }
 				    else {
