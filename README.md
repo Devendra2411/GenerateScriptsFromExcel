@@ -1,5 +1,5 @@
 # GenerateScriptsFromExcel
-From Users perspective Indexes starts with 1
+From Users perspective Indexes starts with 1.
 Every Request Param mandatory to be selected . If you dont want them you can make their values as blank.
 
 Request Params :
