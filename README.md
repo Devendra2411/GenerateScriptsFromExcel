@@ -1,5 +1,6 @@
 # GenerateScriptsFromExcel
 From Users perspective Indexes starts with 1
+Every Request Param mandatory to be selected . If you dont want them you can make their values as blank.
 
 Request Params :
 1.file -- upload a file
