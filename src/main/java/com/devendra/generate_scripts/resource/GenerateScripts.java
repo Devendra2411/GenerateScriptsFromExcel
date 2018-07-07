@@ -28,36 +28,34 @@ public class GenerateScripts {
 
 	@PostMapping
 	public String generateScript(@RequestParam("file") MultipartFile file, @RequestParam("tableName") String tableName,
-			@RequestParam("limitRows") String limitRows, @RequestParam("startingRowNum") String startingRowNum,
+			@RequestParam("limitRows") Integer limitRows, @RequestParam("startingRowNum") Integer startingRowNum,
 			@RequestParam("integerColumns") String integerColumns) throws InvalidFormatException, IOException {
 		Workbook wb = getWorkbook(file);
 		Sheet sheet = wb.getSheetAt(0);
 		Row row;
 		Cell cell;
-		int startRow = 1;
-		int limitToRows = sheet.getLastRowNum();
+		int totalRows = sheet.getLastRowNum();
 		int noOfColumns = 0;
 		StringBuilder query = new StringBuilder();
 		query.append("insert into " + tableName + " (");
-		if (!limitRows.equals("")) {
-			limitToRows = Integer.valueOf(limitRows);
+		if (limitRows==null || limitRows>totalRows) {
+				limitRows=totalRows;
 		}
-		if (!startingRowNum.equals("")) {
-			startRow = Integer.valueOf(startingRowNum);
+		if (startingRowNum==null) {
+			startingRowNum=1;
 		}
 
 		DataFormatter formatter = new DataFormatter();
 		List<String> integerList = Arrays.asList(integerColumns.split(","));
-		row = sheet.getRow(startRow - 1);
+		row = sheet.getRow(startingRowNum - 1);
 		noOfColumns = row.getLastCellNum();
 		for (int i = 0; i < noOfColumns; i++) {
-
 			if (i == noOfColumns - 1)
 				query.append(row.getCell(i) + ") values(");
 			else
 				query.append(row.getCell(i) + ",");
 		}
-		for (int i = startRow; i <= limitToRows; i++) {
+		for (int i = startingRowNum; i <= limitRows; i++) {
 			row = sheet.getRow(i);
 			for (int j = 0; j < noOfColumns; j++) {
 				cell = row.getCell(j);
@@ -75,7 +73,7 @@ public class GenerateScripts {
 				else
 					query.append(",");
 			}
-			if (i != limitToRows) {
+			if (i != limitRows) {
 				query.append(",(");
 			}
 		}
