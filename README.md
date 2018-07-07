@@ -1,7 +1,10 @@
 # GenerateScriptsFromExcel
+From Users perspective Indexes starts with 1.
+Every Request Param mandatory to be selected . If you dont want them you can make their values as blank.
 
-Request Params 
+Request Params :
 1.file -- upload a file
-2.tableName ---Name of the table to which you want insert script
-3.columnNamesRowNum -- Row Number in which column names are there. Reading Excel starts from this row
-4.maxRows  -- Maximum number of rows including header row for which you need insert scripts
+2.tableName ---Name of the table
+3.startingRowNum -- this is optional  .If you left this as blank it will take default Row as 1
+4.limitRows  -- this is optional . If you left this as blank it will take default as total Number of Rows in Excel
+5.integerColumns -- Give the Index of Integer Columns as Comma Seperated
