@@ -1,4 +1,6 @@
 # GenerateScriptsFromExcel
+
+Url :https://generatescripts.run.aws-usw02-pr.ice.predix.io/generatescripts
 From Users perspective Indexes starts with 1.
 Every Request Param mandatory to be selected . If you dont want them you can make their values as blank.
 
