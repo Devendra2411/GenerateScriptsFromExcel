@@ -12,3 +12,6 @@ Request Params :
 7.charactersToReplaceWith -- Give the escaping character to replace special character with .This is not mandatory you can left the value as blank if you dont have special characters
 
 By Default if you dont give charactersToReplace and charactersToReplaceWith it will check for SingleQuote(') and will replace it with ('') if present
+
+
+You Can Clone the Project and you can import Postman Collection and you use the service
