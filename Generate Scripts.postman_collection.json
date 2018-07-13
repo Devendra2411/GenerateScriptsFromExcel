@@ -1,0 +1,75 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Generate Scripts",
+		"_postman_id": "81fe8147-c9c2-598e-7366-7fb548627a55",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "generatescripts",
+			"request": {
+				"url": "https://generatescripts.run.aws-usw02-pr.ice.predix.io/generatescripts",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"description": "",
+							"type": "file",
+							"src": "ER Excel.xlsx"
+						},
+						{
+							"key": "tableName",
+							"value": "rfr_pgs_fspevent",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "startingRowNum",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "limitRows",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "integerColumns",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "charactersToReplace",
+							"value": "",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "charactersToReplaceWith",
+							"value": "",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Url for generating insert scripts"
+			},
+			"response": []
+		}
+	]
+}
