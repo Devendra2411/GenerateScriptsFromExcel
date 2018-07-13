@@ -29,7 +29,8 @@ public class GenerateScripts {
 	@PostMapping
 	public String generateScript(@RequestParam("file") MultipartFile file, @RequestParam("tableName") String tableName,
 			@RequestParam("limitRows") Integer limitRows, @RequestParam("startingRowNum") Integer startingRowNum,
-			@RequestParam("integerColumns") String integerColumns) throws InvalidFormatException, IOException {
+			@RequestParam("integerColumns") String integerColumns, @RequestParam("charactersToReplace") String charactersToReplace, @RequestParam("charactersToReplaceWith")String charactersToReplaceWith) 
+			throws Exception {
 		Workbook wb = getWorkbook(file);
 		Sheet sheet = wb.getSheetAt(0);
 		Row row;
@@ -59,14 +60,20 @@ public class GenerateScripts {
 			row = sheet.getRow(i);
 			for (int j = 0; j < noOfColumns; j++) {
 				cell = row.getCell(j);
-				String val = formatter.formatCellValue(cell);
+				String val = formatter.formatCellValue(cell).trim();
+				if(charactersToReplace.trim()!=null && !charactersToReplace.trim().equalsIgnoreCase("") && val.contains(charactersToReplace.trim())) {
+					val=val.replace(charactersToReplace,charactersToReplaceWith);
+				}
+				else if(val.contains("'")) {
+					val=val.replace("'", "''");
+				}
 				if (val.isEmpty()) {
 					val = null;
 					query.append(val);
 				} else if (integerList.contains(Integer.toString(j + 1))) {
 					query.append(val);
 				} else {
-					query.append("'" + val + "'");
+					query.append("'"+val+"'");
 				}
 				if (j == noOfColumns - 1)
 					query.append(")");
@@ -77,11 +84,11 @@ public class GenerateScripts {
 				query.append(",(");
 			}
 		}
-		return query.toString();
+		return query.toString().trim();
 
 	}
 
-	public Workbook getWorkbook(MultipartFile file) throws InvalidFormatException, IOException {
+	public Workbook getWorkbook(MultipartFile file) throws Exception {
 		Workbook wb = null;
 		byte[] bytes = file.getBytes();
 		String fileType = getFileExtension(file.getOriginalFilename());
@@ -93,6 +100,9 @@ public class GenerateScripts {
 			wb = new XSSFWorkbook(tempFile);
 		} else if (fileType.equalsIgnoreCase("xls")) {
 			wb = new HSSFWorkbook(new POIFSFileSystem(new FileInputStream(tempFile)));
+		}
+		else {
+			throw new Exception("We only support xls and xlsx");
 		}
 		return wb;
 
