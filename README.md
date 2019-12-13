@@ -16,4 +16,4 @@ Request Params :
 By Default if you dont give charactersToReplace and charactersToReplaceWith it will check for SingleQuote(') and will replace it with ('') if present
 
 
-You Can Clone the Project and you can import Postman Collection and you use the service
+You Can Clone the Project and you can import Postman Collection and you can start using the service
